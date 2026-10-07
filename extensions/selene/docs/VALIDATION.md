@@ -62,3 +62,9 @@ At 320/390 px, the header's New conversation receives the center-point hit with 
 [Second-review screenshots](https://github.com/Charles-HL/hermes-webui-selene/tree/main/review-evidence) are linked from the PR, excluded from the release ZIP and absent from the gallery package. Main installed conversation previews remain in the package.
 
 Installed follow-up on 1.1.3: `sessionList` computed to overflow auto with a bounded 393 px height, and the profile parent remained the sidebar. Core's absent quota data stayed hidden inside the add menu, with the translated fixed caption available when needed. Pointer opening left focus on + and no console errors were observed. Runtime hashes matched between the canonical source and the installation; the WebUI remained healthy. Package validation/safety (22 entries) and the 15 behavior suites passed on this revision.
+
+## Toast layering (1.1.5)
+
+Synced the merged gallery 1.1.4 runtime and demo-only mobile preview before this fix. A native-template fixture checked a toast overlapping the header at desktop 1200 px / mobile 390 px: the toast layer is 600, above header 300 and drawer 400; hit-testing the overlapping area resolves to the toast, and its Dismiss button works. Native timing and notification logic are unchanged.
+
+Maintainer follow-up: at Core's 24px offset a raised toast covered the centers of the header's hamburger, New conversation and Reload buttons at 390px, and New conversation at 1200px with the sidebar collapsed (a 20-second error toast held them for its whole lifetime). The toast now starts at 60px, below the 52px header. On Core `2e0557328` with the installed theme, all three header buttons stay hit-testable with an error toast showing at 1200px (sidebar open and collapsed) and 390px, Dismiss stays hit-testable, the toast still layers over the open mobile drawer, and Core's confirm dialog still covers it.
